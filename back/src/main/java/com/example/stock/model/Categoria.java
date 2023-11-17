@@ -1,4 +1,5 @@
 package com.example.stock.model;
+
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
@@ -7,13 +8,11 @@ import jakarta.persistence.*;
 @Getter
 @Setter
 
-public class Usuario {
+public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
-    private String sobrenome;
-    private String email;
-
+    private Long id_categoria;
     
+    private String nome_categoria;
 }

@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, ScrollView } from 'react-native';
-
-import HeaderText from '../../components/header-text'
-
+import HeaderText from '../../components/header-text';
 import styles from './styles';
-
+import axios from 'axios';  // Importe o axios para realizar chamadas HTTP
 import { useNavigation } from '@react-navigation/native';
 
 
 export function Categorias() {
+  const [categorias, setCategorias] = useState([]);
   const navigation = useNavigation();
 
-  function CategoriaEspecifica(){
-    navigation.navigate("CategoriaEspecifica")
-  }
+
+  useEffect(() => {
+    axios.get('http://localhost:8090/categorias')  // Altere a URL para a API do React Native
+      .then((response) => {
+        setCategorias(response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar as categorias:', error);
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -30,32 +36,16 @@ export function Categorias() {
         />
         <Image style={styles.pesquisaImagem} source={require("../../../assets/Icons/pesquisa.svg")}></Image>
       </View>
-      <ScrollView style={{marginBottom: 30,}}>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Teclados</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Monitores</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Mouses</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Mouses Pads</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Roteadores</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Cadeiras</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Mesas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={CategoriaEspecifica} style={styles.Button}>
-          <Text style={styles.textButton}>Cameras</Text>
-        </TouchableOpacity>
-
+      <ScrollView style={{ marginBottom: 30 }}>
+        {categorias.map((categoria, index) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('CategoriaEspecifica', { categoriaId: categoria.id_categoria, nomeCategoria: categoria.nome_categoria })}
+            style={styles.Button}
+            key={index}
+          >
+            <Text style={styles.textButton}>{categoria.nome_categoria}</Text>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
       
     </View>
