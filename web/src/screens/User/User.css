@@ -1,0 +1,49 @@
+.user{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh
+}
+
+.user h4{
+  color: #fff;
+  font-size: 1.3vw;
+
+
+}
+
+.user img{
+  width: 10vw;
+}
+
+.user input{
+  border: none;
+  border-radius: 15px;
+  background-color: #0C0C0C;
+  font-size: 1vw;
+  color: #fff;
+  padding: 2vh 1vw;
+  font-weight: 500;
+  width: 15vw;
+}
+
+.user input::placeholder{
+  color: #fff;
+}
+
+.user button{
+  border: none;
+  border-radius: 15px;
+  background-color: #40DD67;
+  font-size: 1vw;
+  color: #fff;
+  padding: 2vh 1vw;
+  font-weight: 500;  
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.user button:hover{
+background-color: #30a64e;
+}
