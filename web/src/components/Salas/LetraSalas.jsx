@@ -4,7 +4,7 @@ const LetraSala = () => {
       { id_letrasalas: 2, nome_letrasalas: 'D' },
       { id_letrasalas: 3, nome_letrasalas: 'E' },
       { id_letrasalas: 4, nome_letrasalas: 'F' },
-      { id_letrasalas: 5, nome_letrasalas: 'G' },
+      { id_letrasalas: 5, nome_letrasalas: 'G' }
     ];
   };
   

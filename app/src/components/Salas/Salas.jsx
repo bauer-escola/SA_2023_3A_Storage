@@ -1,5 +1,4 @@
-const LetraSala = () => {
-  return [
+const Salas = [
     {"id_sala": "A11", "nome_sala": "A11", "letra_sala": "A"},
     {"id_sala": "A12", "nome_sala": "A12", "letra_sala": "A"},
     {"id_sala": "A13", "nome_sala": "A13", "letra_sala": "A"},
@@ -25,8 +24,7 @@ const LetraSala = () => {
     
     {"id_sala": "E11", "nome_sala": "E11", "letra_sala": "E"},
     {"id_sala": "E12", "nome_sala": "E12", "letra_sala": "E"},
-    {"id_sala": "E13", "nome_sala": "E13", "letra_sala": "E"},
+    {"id_sala": "E13", "nome_sala": "E13", "letra_sala": "E"}
   ]
-};
   
-export default LetraSala;
+export default Salas;

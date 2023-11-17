@@ -8,8 +8,6 @@ import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { ProdutoRequisitado } from '../ProdutoRequisitado';
 
-
-
 export function EmFalta() {
   const navigation = useNavigation();
 
@@ -64,12 +62,7 @@ export function EmFalta() {
             <Image style={{width: 20, height: 20, marginRight: 20,}} source={require("../../../assets/Icons/Editar.svg")}></Image>
             <Image style={{width: 20, height: 20}} source={require("../../../assets/Icons/Lixeira.svg")}></Image>
           </View>
-        </TouchableOpacity>
-    
-
-
-
-       
+        </TouchableOpacity>  
       </ScrollView>
 
       <View style={{position: 'fixed', width: '100%', bottom: 0, justifyContent: 'center', alignItems: 'center', padding: 20, backgroundColor: 'rgba(0, 0, 0, 0.8)'}}>
