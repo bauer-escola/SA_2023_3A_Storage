@@ -1,0 +1,13 @@
+header{
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 5vh;
+  left: 0vw;
+}
+
+.header img{
+  height: 3vw;
+  margin: 0 5vw;
+}
