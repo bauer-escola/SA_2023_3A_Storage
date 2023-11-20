@@ -1,0 +1,44 @@
+
+
+.home{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vh 2vw
+}
+
+.home img{
+  width: 20vw;
+}
+
+.home article:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.home article{
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  transition: 0.2s;
+  height: 100%;
+}
+
+.home article div{
+  background: rgba(12, 12, 12, 0.70);
+  position: absolute;
+  bottom: 0vh;
+  width: 100%;
+  text-align: center;
+}
+
+.home h3{
+  color: #fff;
+  font-weight: 600;
+  padding: 1vh 0;
+  font-size: 1.5vw;
+}
+
+.home .mais{
+  width: 7vw;
+}
