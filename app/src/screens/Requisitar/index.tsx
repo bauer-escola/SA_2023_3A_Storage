@@ -1,58 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Picker } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useScrollToTop } from '@react-navigation/native';
+import Modal from "react-native-modal";
+import axios from 'axios'
+
 
 import HeaderText from '../../components/header-text'
 import styles from './styles';
 
 export function Requisitar() {
   const navigation = useNavigation();
-  const [selectedAtividade, setSelectedAtividade] = useState('Atividade (ex: Professor)');
-  const [selectedCategoria, setSelectedCategoria] = useState('Categoria do Item');
-  const [selectedSala, setSelectedSala] = useState('Sala');
 
 
-  const categoria = [
-    { label: 'Monitor', value: 'Monitor' },
-    { label: 'Teclado', value: 'Professor' },
-    { label: 'ChromeBook', value: 'Funcionário' },
-    { label: 'Mouse', value: 'Gerencia' },
-    { label: 'MousePad', value: 'Secretaria' },
-    { label: 'Roteador', value: 'Coordenação' },
-  ];
+  const [categorias, setCategorias] = useState([]);
 
-  const sala = [
-    { label: 'A11', value: 'A11' },
-    { label: 'D11', value: 'D11' },
-    { label: 'D12', value: 'D12' },
-    { label: 'D21', value: 'D21' },
-    { label: 'D22', value: 'D22' },
-    { label: 'E11', value: 'E11' },
-    { label: 'E12', value: 'E12' },
-    { label: 'E13', value: 'E13' },
-    { label: 'F11', value: 'F11' },
-    { label: 'F12', value: 'F12' },
-    { label: 'F13', value: 'F13' },
-    { label: 'F21', value: 'F21' },
-    { label: 'F22', value: 'F22' },
-    { label: 'F23', value: 'F23' },
-    { label: 'F25', value: 'F25' },
-    { label: 'G12', value: 'G12' },
-    { label: 'G22', value: 'G22' },
-  ];
 
-  const atividades = [
-    { label: 'Aluno', value: 'Aluno' },
-    { label: 'Professor', value: 'Professor' },
-    { label: 'Funcionário', value: 'Funcionário' },
-    { label: 'Gerencia', value: 'Gerencia' },
-    { label: 'Secretaria', value: 'Secretaria' },
-    { label: 'Coordenação', value: 'Coordenação' },
-  ];
+  useEffect(() => {
+    axios.get('http://localhost:8090/categorias')  // Altere a URL para a API do React Native
+      .then((response) => {
+        setCategorias(response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar as categorias:', error);
+      });
+  }, []);
 
-  function EmFalta() {
-    navigation.navigate("EmFalta");
-  }
+
+
+
+
+
+  const [produto, setProduto] = useState([]);
+  const [nomeInput, setNomeInput] = useState("");
+  const [atividadeInput, setAtividadeInput] = useState("");
+  const [categoriaInput, setCategoriaInput] = useState("");
+  const [salaInput, setSalaInput] = useState("");
+  const [observacaoInput, setObservacaoInput] = useState("")
+  
+
+  // GET
+  const fetchProduto = async () => {
+    try {
+      const response = await axios.get('http://localhost:8090/produtos')
+      setProduto(response.data);
+    } catch (error) {
+      console.log('erro', error)
+    }
+  };
+  
+  useEffect(() => {
+    fetchProduto()
+  }, [])
+  
+  // POST
+  const handleSubmit = async () => {
+    try {
+    
+      let novoProduto = {
+        nome: nomeInput,
+        atividade: atividadeInput,
+        categoria: categoriaInput,
+        sala: salaInput,
+        observacao: observacaoInput,
+
+      };
+
+      await axios.post('http://localhost:8090/requisitar', novoProduto);
+      fetchProduto();
+      setNomeInput(''); // Limpa o campo de comentário após o envio
+      setAtividadeInput('');
+      setCategoriaInput('');
+      setSalaInput('');
+      setObservacaoInput('');
+      setModalVisible(true);      
+      navigation.navigate("EmFalta");
+    } catch (error) {
+      console.error('Erro ao criar produto:', error);
+    }
+  };
+
+
+ // react modal
+ const [isModalVisible, setModalVisible] = React.useState(false); // Estado para controlar a visibilidade do modal
+ function closeModal() {
+   setModalVisible(false);
+ }
 
   return (
     <View style={styles.container}>
@@ -66,53 +98,56 @@ export function Requisitar() {
       </Text>
 
       <ScrollView style={{ marginBottom: 30 }}>
-        <TextInput
-          style={styles.Button}
-          placeholder="Nome Completo:"
+      <TextInput
+          style={[styles.Button]}
+          placeholder="Nome:"
+          value={nomeInput}
+          onChangeText={(text) => setNomeInput(text)}
         />
 
-        <Picker
-        style={styles.Button}
-          selectedValue={selectedAtividade}
-          onValueChange={(itemValue: string) => setSelectedAtividade(itemValue)}
-        >
-          {atividades.map((atividade, index) => (
-            <Picker.Item key={index} label={atividade.label} value={atividade.value} />
-          ))}
-        </Picker>
-
-        <Picker
-        style={styles.Button}
-          selectedValue={selectedCategoria}
-          onValueChange={(itemValue: string) => setSelectedCategoria(itemValue)}
-        >
-          {categoria.map((categoria, index) => (
-            <Picker.Item key={index} label={categoria.label} value={categoria.value} />
-          ))}
-        </Picker>
-
-        <Picker
-        style={styles.Button}
-          selectedValue={selectedSala}
-          onValueChange={(itemValue: string) => setSelectedSala(itemValue)}
-        >
-          {sala.map((sala, index) => (
-            <Picker.Item key={index} label={sala.label} value={sala.value} />
-          ))}
-        </Picker>
+        <TextInput
+          style={[styles.Button]}
+          placeholder="Atividade (exemplo: Professor):"
+          value={atividadeInput}
+          onChangeText={(text) => setAtividadeInput(text)}
+        />
+        <TextInput
+          style={[styles.Button]}
+          placeholder="Categoria do objeto:"
+          value={categoriaInput}
+          onChangeText={(text) => setCategoriaInput(text)}
+        />
+        <TextInput
+          style={[styles.Button]}
+          placeholder="Sala requisitada:"
+          value={salaInput}
+          onChangeText={(text) => setSalaInput(text)}
+        />
 
         <TextInput
-          style={styles.Button}
+          style={[styles.Button]}
           placeholder="Observação:"
+          value={observacaoInput}
+          onChangeText={(text) => setObservacaoInput(text)}
         />
 
         
-          <TouchableOpacity onPress={EmFalta} style={{ backgroundColor: '#40DD67', paddingHorizontal: 30, paddingVertical: 15, marginTop: 20, marginBottom: 20, borderRadius: 10,  marginHorizontal: 50, alignItems: 'center', justifyContent: 'center' }}>
+          <TouchableOpacity onPress={handleSubmit} style={{ backgroundColor: '#40DD67', paddingHorizontal: 30, paddingVertical: 15, marginTop: 20, marginBottom: 20, borderRadius: 10,  marginHorizontal: 50, alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>
               Pedido de Requisito
             </Text>
           </TouchableOpacity>
-
+       {/* Modal de Confirmação */}
+       <Modal isVisible={isModalVisible}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>Requisição enviada</Text>
+          <View style={styles.modalButtons}>
+            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+              <Text style={styles.modalButtonText}>Ok</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       </ScrollView>
     </View>
   );
