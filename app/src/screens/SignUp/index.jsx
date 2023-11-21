@@ -21,8 +21,8 @@ export function SignUp() {
     try {
       let novoUsuario = {
         nome_usuario: nomeInput,
-        email: emailInput,
-        senha: senhaInput,
+        email_usuario: emailInput,
+        senha_usuario: senhaInput,
       };
       if
         (nomeInput != null
@@ -30,7 +30,7 @@ export function SignUp() {
         && senhaInput != null
         && senhaInput.length > 0) {
         alert(`Usuário ${nomeInput} cadastrado com sucesso!`);
-        await axios.post('http://localhost:8090/usuarios', novoUsuario);
+        await axios.post('http://localhost:8090/usuario', novoUsuario);
         console.log('Cadastro realizado com sucesso!');
         setNomeInput('');
         setEmailInput('');

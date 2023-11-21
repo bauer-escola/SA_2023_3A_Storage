@@ -110,6 +110,7 @@ function CriarProduto() {
             
               <select
               name="categoriaInput"
+              className="categoriaInput"
               value={inputCriar.categoriaInput}
               onChange={handleInputChange}
             >
