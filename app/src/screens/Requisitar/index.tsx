@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Picker } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import Modal from "react-native-modal";
 import axios from 'axios'
@@ -137,17 +137,6 @@ export function Requisitar() {
               Pedido de Requisito
             </Text>
           </TouchableOpacity>
-       {/* Modal de Confirmação */}
-       <Modal isVisible={isModalVisible}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>Requisição enviada</Text>
-          <View style={styles.modalButtons}>
-            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-              <Text style={styles.modalButtonText}>Ok</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
       </ScrollView>
     </View>
   );

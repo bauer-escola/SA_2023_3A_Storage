@@ -19,6 +19,7 @@ export function User() {
             placeholder="Telefone"
           />
         </View>
+        
     </View>
   );
 }
