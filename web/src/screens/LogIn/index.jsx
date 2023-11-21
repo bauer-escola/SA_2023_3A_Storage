@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router-dom";
 import logo from '../../assets/Logo.svg'
 import axios from 'axios';
@@ -8,7 +7,7 @@ const logar = async (nomeInput, senhaInput) => {
     try {
       const response = await axios.post('http://localhost:8090/api/login', {
         nome_usuario: nomeInput,
-        senha: senhaInput,
+        senha_usuario: senhaInput,
       });
       return response.data;
     } catch (error) {

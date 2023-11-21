@@ -10,10 +10,10 @@ import jakarta.persistence.*;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
-    private String sobrenome;
-    private String email;
-
+    private Long id_usuario;
+    private String nome_usuario;
+    private String sobrenome_usuario;
+    private String email_usuario;
+    private String senha_usuario;
     
 }

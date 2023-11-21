@@ -14,8 +14,8 @@ function SignIn() {
         try {
             let novoUsuario = {
                 nome_usuario: nomeInput,
-                email: emailInput,
-                senha: senhaInput,
+                email_usuario: emailInput,
+                senha_usuario: senhaInput,
             };
             if
                 (nomeInput != null
@@ -23,7 +23,7 @@ function SignIn() {
                 && senhaInput != null
                 && senhaInput.length > 0) {
                     alert(`Usuário ${nomeInput} cadastrado com sucesso!`);
-                await axios.post('http://localhost:8090/usuarios', novoUsuario);
+                await axios.post('http://localhost:8090/usuario', novoUsuario);
                 console.log('Cadastro realizado com sucesso!');
             
                 setNomeInput('');
@@ -36,7 +36,6 @@ function SignIn() {
     };
 
     return (
-
         <>
             <main className='SignIn'>
                 <div>

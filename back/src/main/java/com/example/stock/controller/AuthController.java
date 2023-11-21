@@ -26,11 +26,10 @@ public class AuthController {
     public Boolean login(@RequestBody Usuario usuario) {
         List<Usuario> usuarios = usuarioRepository.findAll();
         for (Usuario u : usuarios) {
-            if (u.getNome_usuario().equals(usuario.getNome_usuario()) && u.getSenha().equals(usuario.getSenha())) {
+            if (u.getNome_usuario().equals(usuario.getNome_usuario()) && u.getSenha_usuario().equals(usuario.getSenha_usuario())) {
                 return true;
             }
         }
         return false;
     }
-
 }

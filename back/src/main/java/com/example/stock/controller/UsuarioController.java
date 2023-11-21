@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 public class UsuarioController {
   
   @Autowired
-  private UsuarioRepository UsuarioRepository;
+  private UsuarioRepository usuarioRepository;
 
   @GetMapping
   public List<Usuario> listarUsuarios() {
@@ -27,9 +27,9 @@ public class UsuarioController {
   }
 
   @DeleteMapping("/{id_usuario}")
-  public ResponseEntity<String> deletarUsuario(@PathVariable Long id) {
-  if (UsuarioRepository.existsById(id_usuario)) {
-    UsuarioRepository.deleteById(id_usuario);
+  public ResponseEntity<String> deletarUsuario(@PathVariable Long id_usuario) {
+  if (usuarioRepository.existsById(id_usuario)) {
+    usuarioRepository.deleteById(id_usuario);
     return ResponseEntity.ok("Usuario deletado com sucesso");
   } else {
     return ResponseEntity.notFound().build();
@@ -38,11 +38,11 @@ public class UsuarioController {
   
   @PutMapping("/{id_usuario}")
   public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id_usuario, @RequestBody Usuario usuarioAtualizado) {
-      if (UsuarioRepository.existsById(id_usuario)) {
-          Usuario usuario = UsuarioRepository.findById(id_usuario).get();
-          usuario.setNome(usuarioAtualizado.getNome());
-          usuario.setSobrenome(usuarioAtualizado.getSobrenome());
-          usuario.setEmail(usuarioAtualizado.getEmail());
+      if (usuarioRepository.existsById(id_usuario)) {
+          Usuario usuario = usuarioRepository.findById(id_usuario).get();
+          usuario.setNome_usuario(usuarioAtualizado.getNome_usuario());
+          usuario.setSobrenome_usuario(usuarioAtualizado.getSobrenome_usuario());
+          usuario.setEmail_usuario(usuarioAtualizado.getEmail_usuario());
 
           Usuario usuarioAtualizadoBD = usuarioRepository.save(usuario);
           return ResponseEntity.ok(usuarioAtualizadoBD);
